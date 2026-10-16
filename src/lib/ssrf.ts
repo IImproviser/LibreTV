@@ -59,6 +59,12 @@ export async function isBlockedByDNS(urlString: string): Promise<boolean> {
     if (/^\d{1,3}(\.\d{1,3}){3}$/.test(hostname) || hostname.includes(':')) {
       return isPrivateIP(hostname);
     }
+    if (process.env.CF_WORKER === '1') {
+      // Workers implements resolve4/resolve6, but not dns.lookup.
+      const answers = await Promise.allSettled([dns.resolve4(hostname), dns.resolve6(hostname)]);
+      const addresses = answers.flatMap((answer) => answer.status === 'fulfilled' ? answer.value : []);
+      return addresses.some(isPrivateIP);
+    }
     const result = await dns.lookup(hostname, { all: true });
     return result.some((r) => isPrivateIP(r.address));
   } catch {
