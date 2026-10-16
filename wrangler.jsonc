@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "libretv",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-16",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "libretv"
+    }
+  ],
+  "vars": {
+    "CF_WORKER": "1",
+    "DEFAULT_RECOMMEND_SOURCE": "hot-list",
+    "SEARCH_MAX_PAGES": "2",
+    "DEFAULT_SOURCES": "[{\"name\":\"暴风资源\",\"url\":\"https://bfzyapi.com/api.php/provide/vod\"},{\"name\":\"非凡资源\",\"url\":\"https://cj.ffzyapi.com/api.php/provide/vod\"},{\"name\":\"量子资源\",\"url\":\"https://cj.lziapi.com/api.php/provide/vod\"},{\"name\":\"卧龙资源\",\"url\":\"https://collect.wolongzyw.com/api.php/provide/vod\"}]"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
