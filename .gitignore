@@ -12,3 +12,7 @@ vitest-results.json
 .zcode/
 .codebuddy/
 generated-images/
+# Cloudflare build output and local secrets
+.open-next/
+.wrangler/
+.dev.vars
